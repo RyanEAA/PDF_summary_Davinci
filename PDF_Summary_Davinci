@@ -1,0 +1,39 @@
+import openai
+import PyPDF2
+
+# Set up OpenAI API credentials
+openai.api_key = "OPENAI_KEY"
+
+# Load the PDF file
+with open('NAME_OF_PDF.pdf', 'rb') as pdf_file:
+    # Create a PDF reader object
+    pdf_reader = PyPDF2.PdfReader(pdf_file)
+    
+    # Extract text from all pages of the PDF
+    pdf_text = ''
+    for page_num in range(len(pdf_reader.pages)):
+        page = pdf_reader.pages[page_num]
+        pdf_text += page.extract_text()
+
+
+    # Split the input text into chunks of maximum context length
+    input_chunks = [pdf_text[i:i+max_context_length] for i in range(0, len(pdf_text), max_context_length)]
+
+    def generate_text(prompt):
+        response = openai.Completion.create(
+            engine="text-davinci-002",
+            prompt=prompt,
+            max_tokens=1024,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
+        return response.choices[0].text
+
+      # Generate a summary of the input text
+    summary = ""
+    for input_chunk in input_chunks:
+        summary += generate_text(f"summarize the text as if your telling it to a child in bullet points: {input_chunk}")
+
+# Print the summary
+print(summary)
