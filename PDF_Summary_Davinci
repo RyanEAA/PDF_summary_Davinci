@@ -5,7 +5,9 @@ import PyPDF2
 openai.api_key = "OPENAI_KEY"
 
 # Load the PDF file
-with open('NAME_OF_PDF.pdf', 'rb') as pdf_file:
+
+# Load the PDF file
+with open('PDF_NAME.pdf', 'rb') as pdf_file:
     # Create a PDF reader object
     pdf_reader = PyPDF2.PdfReader(pdf_file)
     
@@ -17,7 +19,7 @@ with open('NAME_OF_PDF.pdf', 'rb') as pdf_file:
 
 
     # Split the input text into chunks of maximum context length
-    input_chunks = [pdf_text[i:i+max_context_length] for i in range(0, len(pdf_text), max_context_length)]
+    input_chunks = [pdf_text[i:i + max_content_length()] for i in range(0, len(pdf_text), 4096)]
 
     def generate_text(prompt):
         response = openai.Completion.create(
@@ -31,9 +33,8 @@ with open('NAME_OF_PDF.pdf', 'rb') as pdf_file:
         return response.choices[0].text
 
       # Generate a summary of the input text
-    summary = ""
+    #summary = ""
     for input_chunk in input_chunks:
-        summary += generate_text(f"summarize the text as if your telling it to a child in bullet points: {input_chunk}")
+        print(generate_text(f"summarize the text as if your telling it to a child, use bullet points, proper english including spaces in the appropriate places: {input_chunk}"))
 
 # Print the summary
-print(summary)
