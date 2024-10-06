@@ -1,4 +1,11 @@
-# PDF_summary_Davinci
-#make sure to import openai and PyPDF2 using
-import openai
-import PyPDF2
+# PDF Summariser
+# How to Use
+- fork the repository
+- make sure to have a virtual python environment
+-   import openai
+-   import PyPDF2
+-   get personal key from OpenAI
+# Proper File Structure
+PDF_summary_Davinci
+├── PDF_Summary_Davinci.py
+└── your_pdf.pdf
