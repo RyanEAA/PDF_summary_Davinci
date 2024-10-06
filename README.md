@@ -6,6 +6,6 @@
 -   import PyPDF2
 -   get personal key from OpenAI
 # Proper File Structure
-PDF_summary_Davinci
-├── PDF_Summary_Davinci.py
+PDF_summary_Davinci\n
+├── PDF_Summary_Davinci.py\n
 └── your_pdf.pdf
